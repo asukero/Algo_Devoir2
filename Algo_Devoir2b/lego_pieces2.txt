@@ -1,0 +1,7 @@
+﻿piece_id,descr,category
+
+0687b1,Set 0687 Activity Booklet 1,Non-LEGO
+10052,"Minifig Beard, Rounded End [Gandalf]",Minifig Accessories
+1090boc,Set 1090 Activity Booklet - Parts Tray Organizer Card,Non-LEGO
+10916,Electric Cable USB for Mindstorms EV3 (2 meter),"Power Functions, Mindstorms and Electric"
+10928,"Technic, Gear 8 Tooth, Reinforced",Gears

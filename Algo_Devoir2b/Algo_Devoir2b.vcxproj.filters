@@ -16,12 +16,24 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="lego_pieces.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
+    <Text Include="lego_pieces2.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="BTree234.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="LegoPiece.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -31,6 +43,12 @@
     </ClCompile>
     <ClCompile Include="Algo_Devoir2b.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="BTree234.cpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClCompile>
+    <ClCompile Include="LegoPiece.cpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
