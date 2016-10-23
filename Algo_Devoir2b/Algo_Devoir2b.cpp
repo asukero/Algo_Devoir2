@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 #include "LegoPiece.h"
-#include <algorithm>
+#include "BTree234.h"
 
 using namespace std;
 
@@ -59,12 +59,14 @@ int main()
 	string fileName = "lego_pieces.txt";
 	vector<vector<string>> data = readLegoFile(fileName);
 	vector<LegoPiece> piecesList;
+
+	BTree234<LegoPiece> tree;
+
 	for(size_t i = 0; i < data.size(); i++)
 	{
 		LegoPiece piece = LegoPiece(data[i][0], data[i][1], data[i][2]);
-		piecesList.push_back(piece);
+		tree.addKey(piece);
 	}
-	sort(piecesList.begin(), piecesList.end());
 	
 	system("pause");
 	return 0;

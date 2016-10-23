@@ -19,9 +19,9 @@ public:
 	string getCategory() const;
 	void setCategory(string category);
 	
-	bool operator>(LegoPiece legoPiece) const;
-	bool operator<(LegoPiece legoPiece1) const;
-	bool operator==(LegoPiece legoPiece1) const;
+	bool operator>(const LegoPiece legoPiece) const;
+	bool operator<(const LegoPiece legoPiece) const;
+	bool operator==(const LegoPiece legoPiece) const;
 
 private:
 	string id;

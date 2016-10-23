@@ -48,7 +48,7 @@ int main()
 	vector<Person> ancestors;
 	ancestors = familyTree.getAncestorsWithColorEye(&m, GREEN, ancestors);
 	cout << "Ancestors of M with color eye green" << endl;
-	for (int i = 0; i < ancestors.size(); i++)
+	for (size_t i = 0; i < ancestors.size(); i++)
 	{
 		cout << ancestors[i].name << " ";
 	}
@@ -57,7 +57,7 @@ int main()
 	cout << "Descendents List of Q in pre-order:" << endl;
 	vector<Person> descendants;
 	descendants = familyTree.getDescendants(&q,PRE);
-	for(int i = 0; i < descendants.size(); i++)
+	for(size_t i = 0; i < descendants.size(); i++)
 	{
 		cout << descendants[i].name << " ";
 	}
@@ -65,7 +65,7 @@ int main()
 
 	cout << "Descendents List of Q in post-order:" << endl;
 	descendants = familyTree.getDescendants(&q, POST);
-	for (int i = 0; i < descendants.size(); i++)
+	for (size_t i = 0; i < descendants.size(); i++)
 	{
 		cout << descendants[i].name << " ";
 	}
@@ -73,7 +73,7 @@ int main()
 	
 	cout << "Descendents List of Q in in-order:" << endl;
 	descendants = familyTree.getDescendants(&q, IN);
-	for (int i = 0; i < descendants.size(); i++)
+	for (size_t i = 0; i < descendants.size(); i++)
 	{
 		cout << descendants[i].name << " ";
 	}

@@ -1,6 +1,13 @@
 ﻿#include "stdafx.h"
 #include "LegoPiece.h"
 
+LegoPiece::LegoPiece()
+{
+	this->id = "";
+	this->description = "";
+	this->category = "";
+}
+
 LegoPiece::LegoPiece(string id, string description, string category)
 {
 	this->id = id;
@@ -49,17 +56,17 @@ void LegoPiece::setCategory(string category)
 	this->category = category;
 }
 
-bool LegoPiece::operator>(LegoPiece legoPiece) const
+bool LegoPiece::operator>(const LegoPiece legoPiece) const
 {
 	return this->id > legoPiece.getId();
 }
 
-bool LegoPiece::operator<(LegoPiece legoPiece) const
+bool LegoPiece::operator<(const LegoPiece legoPiece) const
 {
 	return this->id < legoPiece.getId();
 }
 
-bool LegoPiece::operator==(LegoPiece legoPiece) const
+bool LegoPiece::operator==(const LegoPiece legoPiece) const
 {
 	return this->id == legoPiece.getId();
 }
