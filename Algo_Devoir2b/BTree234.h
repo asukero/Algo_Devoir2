@@ -127,36 +127,30 @@ void BTree234<T>::_deleteKey(const T & keyToDelete, shared_ptr<Node234<T>> start
 		throw logic_error("key not found in the tree!\n");
 
 	}
+	
+
+	//search next node to visit
+	shared_ptr<Node234<T>> nextNode;
+	int nextLeafPos;
+	vector<T> sumKeys;
+	sumKeys.push_back(keyToDelete);
+	sumKeys.reserve(sumKeys.size() + startNode->getKeys().size());
+	sumKeys.insert(sumKeys.end(), startNode->getKeys().begin(), startNode->getKeys().end());
+	sort(sumKeys.begin(), sumKeys.end());
+
+	//if node where the key to remove is found then the next leaf to visit is the one on the right side of key to delete
+	if (nodeToDelete != nullptr)
+		nextLeafPos = find(sumKeys.begin(), sumKeys.end(), keyToDelete) - sumKeys.begin() + 1;
+	else
+		nextLeafPos = find(sumKeys.begin(), sumKeys.end(), keyToDelete) - sumKeys.begin();
+
+	nextNode = startNode->getLeafAt(nextLeafPos);
+
 	shared_ptr<Node234<T>> leftNeighborNode;
 	shared_ptr<Node234<T>> rightNeighborNode;
 	shared_ptr<Node234<T>> mergedNode;
-	shared_ptr<Node234<T>> nextNode;
 
-	int nextLeafPos;
-	if (nodeToDelete == nullptr)
-	{
-		//search next node to visit
-		vector<T> sumKeys;
-		sumKeys.push_back(keyToDelete);
-		sumKeys.reserve(sumKeys.size() + startNode->getKeys().size());
-		sumKeys.insert(sumKeys.end(), startNode->getKeys().begin(), startNode->getKeys().end());
-		sort(sumKeys.begin(), sumKeys.end());
-		nextLeafPos = find(sumKeys.begin(), sumKeys.end(), keyToDelete) - sumKeys.begin();
-		nextNode = startNode->getLeafAt(nextLeafPos);
-	}
-	else
-	{
-		//search next node to visit
-		vector<T> sumKeys;
-		sumKeys.push_back(keyToDelete);
-		sumKeys.reserve(sumKeys.size() + startNode->getKeys().size());
-		sumKeys.insert(sumKeys.end(), startNode->getKeys().begin(), startNode->getKeys().end());
-		sort(sumKeys.begin(), sumKeys.end());
-		nextLeafPos = find(sumKeys.begin(), sumKeys.end(), keyToDelete) - sumKeys.begin() +1;
-		nextNode = startNode->getLeafAt(nextLeafPos);
-	}
-
-
+	//if the next node has only one key, we have to merge it with his parent node or his neighbors
 	if (nextNode->getKeyCount() == 1)
 	{
 		if (nextLeafPos > 0)
@@ -175,10 +169,10 @@ void BTree234<T>::_deleteKey(const T & keyToDelete, shared_ptr<Node234<T>> start
 			}
 
 			startNode->removeKey(nextLeafPos - 1);
-			startNode->addKey( mergedNode->getKeyAt(mergedNode->getLeavesCount() - 1));
-			mergedNode->removeKey(mergedNode->getLeavesCount() - 1);
+			startNode->addKey(mergedNode->getKeyAt(mergedNode->getKeyCount() - 1));
+			mergedNode->removeKey(mergedNode->getKeyCount() - 1);
 		}
-		else if (rightNeighborNode != nullptr && rightNeighborNode->getLeavesCount() != 1)
+		else if (rightNeighborNode != nullptr && rightNeighborNode->getKeyCount() != 1)
 		{
 			mergedNode = rightNeighborNode;
 			nextNode->addKey(startNode->getKeyAt(nextLeafPos));
@@ -195,96 +189,60 @@ void BTree234<T>::_deleteKey(const T & keyToDelete, shared_ptr<Node234<T>> start
 		else
 		{
 			//if it can't get a key from left or right neighbors then it will merge with one of them and get a key from the parent node
-			if (true)
+
+			mergedNode = make_shared<Node234<T>>();
+
+			//merge nextnode and left neighboor with parent key
+			if (leftNeighborNode != nullptr)
 			{
-				mergedNode = make_shared<Node234<T>>();
-
-				//merge nextnode and left neighboor with parent key
-				if (leftNeighborNode != nullptr)
+				//adds nextNode leaves to merged node
+				if (!nextNode->isLeaf())
 				{
-					//adds nextNode leaves to merged node
-					if (!nextNode->isLeaf())
-					{
-						for (size_t i = 0; i < leftNeighborNode->getLeavesCount(); i++)
-							mergedNode->pushLeaf(leftNeighborNode->getLeafAt(i));
-						for (size_t i = 0; i < nextNode->getLeavesCount(); i++)
-							mergedNode->pushLeaf(nextNode->getLeafAt(i));
-					}
-
-					//adds left neighboor only key, left key of the parent node and next node only key to the merged node
-					mergedNode->addKey(leftNeighborNode->getKeyAt(0));
-					mergedNode->addKey(startNode->getKeyAt(nextLeafPos - 1));
-					mergedNode->addKey(nextNode->getKeyAt(0));
-
-					//removes previous leaves and keys from parent node which are no longer correct
-					startNode->removeLeaf(nextLeafPos);
-					startNode->removeLeaf(nextLeafPos - 1);
-
-					startNode->removeKey(nextLeafPos - 1);
-
-					//inserts the new merged node the place where the old parent key was
-					startNode->insertLeafAt(mergedNode, nextLeafPos - 1);
+					for (size_t i = 0; i < leftNeighborNode->getLeavesCount(); i++)
+						mergedNode->pushLeaf(leftNeighborNode->getLeafAt(i));
+					for (size_t i = 0; i < nextNode->getLeavesCount(); i++)
+						mergedNode->pushLeaf(nextNode->getLeafAt(i));
 				}
 
-				//same has previously but with the right neighbor
-				else if (rightNeighborNode != nullptr)
-				{
-					if (!nextNode->isLeaf())
-					{
-						for (size_t i = 0; i < nextNode->getLeavesCount(); i++)
-							mergedNode->pushLeaf(nextNode->getLeafAt(i));
-						for (size_t i = 0; i < rightNeighborNode->getLeavesCount(); i++)
-							mergedNode->pushLeaf(rightNeighborNode->getLeafAt(i));
-					}
+				//adds left neighboor only key, left key of the parent node and next node only key to the merged node
+				mergedNode->addKey(leftNeighborNode->getKeyAt(0));
+				mergedNode->addKey(startNode->getKeyAt(nextLeafPos - 1));
+				mergedNode->addKey(nextNode->getKeyAt(0));
 
-					mergedNode->addKey(nextNode->getKeyAt(0));
-					mergedNode->addKey(startNode->getKeyAt(nextLeafPos));
-					mergedNode->addKey(rightNeighborNode->getKeyAt(0));
+				//removes previous leaves and keys from parent node which are no longer correct
+				startNode->removeLeaf(nextLeafPos);
+				startNode->removeLeaf(nextLeafPos - 1);
 
-					startNode->removeLeaf(nextLeafPos + 1);
-					startNode->removeLeaf(nextLeafPos);
+				startNode->removeKey(nextLeafPos - 1);
 
-					startNode->removeKey(nextLeafPos);
-
-					startNode->insertLeafAt(mergedNode, nextLeafPos);
-				}
-				nextNode = mergedNode;
+				//inserts the new merged node the place where the old parent key was
+				startNode->insertLeafAt(mergedNode, nextLeafPos - 1);
 			}
-			/*else
+
+			//same has previously but with the right neighbor
+			else if (rightNeighborNode != nullptr)
 			{
-				this->root = make_shared<Node234<T>>();
-
-				if (leftNeighborNode != nullptr)
+				if (!nextNode->isLeaf())
 				{
-					if (!nextNode->isLeaf())
-					{
-						for (size_t i = 0; i < leftNeighborNode->getLeavesCount(); i++)
-							this->root->pushLeaf(leftNeighborNode->getLeafAt(i));
-						for (size_t i = 0; i < nextNode->getLeavesCount(); i++)
-							this->root->pushLeaf(nextNode->getLeafAt(i));
-					}
-
-					this->root->addKey(leftNeighborNode->getKeyAt(0));
-					this->root->addKey(startNode->getKeyAt(nextLeafPos - 1));
-					this->root->addKey(nextNode->getKeyAt(0));
+					for (size_t i = 0; i < nextNode->getLeavesCount(); i++)
+						mergedNode->pushLeaf(nextNode->getLeafAt(i));
+					for (size_t i = 0; i < rightNeighborNode->getLeavesCount(); i++)
+						mergedNode->pushLeaf(rightNeighborNode->getLeafAt(i));
 				}
-				else if (rightNeighborNode != nullptr)
-				{
-					if (!nextNode->isLeaf())
-					{
-						for (size_t i = 0; i <= nextNode->getLeavesCount(); i++)
-							this->root->pushLeaf(nextNode->getLeafAt(i));
-						for (size_t i = 0; i <= rightNeighborNode->getLeavesCount(); i++)
-							this->root->pushLeaf(rightNeighborNode->getLeafAt(i));
-					}
 
-					this->root->addKey(nextNode->getKeyAt(0));
-					this->root->addKey(startNode->getKeyAt(nextLeafPos));
-					this->root->addKey(rightNeighborNode->getKeyAt(0));
+				mergedNode->addKey(nextNode->getKeyAt(0));
+				mergedNode->addKey(startNode->getKeyAt(nextLeafPos));
+				mergedNode->addKey(rightNeighborNode->getKeyAt(0));
 
-				}
-				nextNode = this->root;
-			}*/
+				startNode->removeLeaf(nextLeafPos + 1);
+				startNode->removeLeaf(nextLeafPos);
+
+				startNode->removeKey(nextLeafPos);
+
+				startNode->insertLeafAt(mergedNode, nextLeafPos);
+			}
+			nextNode = mergedNode;
+
 		}
 	}
 

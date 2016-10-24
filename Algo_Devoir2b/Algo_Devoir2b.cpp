@@ -71,7 +71,7 @@ int main()
 	}
 	
 	shared_ptr<Node234<LegoPiece>> node  = tree.search(piecesList[5]);
-	tree.deleteKey(piecesList[3]);
+	tree.deleteKey(piecesList[0]);
 	system("pause");
 	return 0;
 }
