@@ -9,6 +9,7 @@
 #include <vector>
 #include "LegoPiece.h"
 #include "BTree234.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -34,7 +35,7 @@ vector<vector<string>> readLegoFile(string fileName)
 
 			size_t prev = 0, pos;
 			char delimiter = ',';
-			while ((pos = line.find_first_of(delimiter, prev)) != std::string::npos)
+			while ((pos = line.find_first_of(delimiter, prev)) != string::npos)
 			{
 				if (pos > prev)
 					record.push_back(line.substr(prev, pos - prev));
@@ -45,7 +46,7 @@ vector<vector<string>> readLegoFile(string fileName)
 				prev = pos + 1;
 			}
 			if (prev < line.length())
-				record.push_back(line.substr(prev, std::string::npos));
+				record.push_back(line.substr(prev, string::npos));
 		}
 
 		if(!record.empty()) data.push_back(record);
@@ -56,7 +57,7 @@ vector<vector<string>> readLegoFile(string fileName)
 
 int main()
 {
-	string fileName = "lego_pieces.txt";
+	string fileName = "lego_pieces2.txt";
 	vector<vector<string>> data = readLegoFile(fileName);
 	vector<LegoPiece> piecesList;
 
@@ -65,9 +66,12 @@ int main()
 	for(size_t i = 0; i < data.size(); i++)
 	{
 		LegoPiece piece = LegoPiece(data[i][0], data[i][1], data[i][2]);
+		piecesList.push_back(piece);
 		tree.addKey(piece);
 	}
 	
+	shared_ptr<Node234<LegoPiece>> node  = tree.search(piecesList[5]);
+	tree.deleteKey(piecesList[3]);
 	system("pause");
 	return 0;
 }

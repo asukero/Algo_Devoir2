@@ -1,23 +1,20 @@
 ﻿piece_id,descr,category
 
-0687b1,Set 0687 Activity Booklet 1,Non-LEGO
-10052,"Minifig Beard, Rounded End [Gandalf]",Minifig Accessories
-1090boc,Set 1090 Activity Booklet - Parts Tray Organizer Card,Non-LEGO
-10916,Electric Cable USB for Mindstorms EV3 (2 meter),"Power Functions, Mindstorms and Electric"
-10928,"Technic, Gear 8 Tooth, Reinforced",Gears
-10055pr0001,Minifig Hair Long Straight with Light Flesh Elf Ears Print,Minifig Accessories
-10057,Body / Head Gollum,Minifigs
-10057pr0001,Body / Head Gollum - Wide Eyes,Minifigs
-10057pr0002,Body / Head Gollum - Narrow Eyes,Minifigs
-10058,"Arm, Bent [Gollum]",Minifigs
-10061,"Arm Goblin King, Left",Minifigs
-10062,"Hand Cave Troll, Left",Minifigs
-10063,"Arm Goblin King, Right",Minifigs
-10064,"Hand Cave Troll, Right",Minifigs
-10065,Minifig Beard - Full with Braided Moustache Ends,Minifigs
-10075cdb01,"Paper, Cardboard Backdrop for Set 10075 Spider-Man Action Pack",Non-LEGO
-10099,Minifig Gold Medal with Red Ribbon,Minifig Accessories
-10111,ADULT FIGURE W/HEADSET,"Duplo, Quatro and Primo"
-10113,Minifig Batman Mask with Angular Ears and Pronounced Brow,Minifigs
-10124,Arm Hulk - Right,Minifigs
-10124pr0001,"Arm Giant, Right with Blue Darkseid Print",Minifigs
+30,trente,TRENTE
+15,quinze,QUINZE
+20,vingt,VINGT
+40,quarante,QUARANTE
+60,soixante,SOIXANTE
+65,soixante-cinq,SOIXANTE-CINQ
+10,dix,DIX
+18,dix-huit,DIX-HUIT
+19,dix-neuf,DIX-NEUF
+25,ving-cinq,VINGT-CINQ
+35,trente-cinq,TRENTE-CINQ
+50,cinquante,CINQUANTE
+62,soixante-deux,SOIXANTE-DEUX
+90,quatre-vingt-dix,QUATRE-VINGT-DIX
+09,neuf,NEUF
+11,onze,ONZE
+22,vingt-deux,VINGT-DEUX
+29,vingt-neuf,VINGT-NEUF

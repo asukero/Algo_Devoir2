@@ -26,8 +26,8 @@ public:
 	bool addKey(T key);
 	bool pushLeaf(shared_ptr<Node234<T>> leaf);
 	void insertLeafAt(shared_ptr<Node234<T>> leaf, int pos);
-	void removeLeaf(int pos);
-
+	void removeLeaf(int i);
+	void removeKey(int i);
 	size_t getMedianPos();
 
 	bool operator==(Node234<T> node) const;
@@ -141,11 +141,16 @@ void Node234<T>::insertLeafAt(shared_ptr<Node234<T>> leaf, int pos)
 }
 
 template<typename T>
-void Node234<T>::removeLeaf(int pos)
+void Node234<T>::removeLeaf(int i)
 {
-	this->leaves.erase(this->leaves.begin() + pos);
+	this->leaves.erase(this->leaves.begin() + i);
 }
 
+template<typename T>
+void Node234<T>::removeKey(int i)
+{
+	this->keys.erase(this->keys.begin() + i);
+}
 template<typename T>
 size_t Node234<T>::getMedianPos()
 {
