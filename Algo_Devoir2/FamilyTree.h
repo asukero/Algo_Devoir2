@@ -1,9 +1,11 @@
 ﻿#pragma once
 #include <vector>
 #include "Person.h"
-#include "Order.h"
 
 using namespace std;
+
+enum Order
+{ PRE, POST, IN };
 
 class FamilyTree
 {
@@ -19,7 +21,7 @@ public:
 	void addFather(Person*, Person*);
 	float getAverageAge() const;
 
-	vector<Person> getDescendants(Person* person, Order order);
+	vector<Person> getDescendants(Person* person, Order order) const;
 	vector<Person> getAncestorsWithColorEye(Person * person, EyeColor eyeColor, vector<Person> ancestors) const;
 
 	int getHeight() const;

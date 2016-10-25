@@ -72,7 +72,7 @@ int FamilyTree::sumOfAges(Person *person) const
 	return 0;
 }
 
-vector<Person> FamilyTree::getDescendants(Person *person, Order order)
+vector<Person> FamilyTree::getDescendants(Person *person, Order order) const
 {
 	vector<Person> descendants;
 	if (person != nullptr)

@@ -36,6 +36,23 @@ public:
 	static shared_ptr<Node234<T>> convertToNode234(shared_ptr<RBNode<T>> node);
 
 	bool operator==(Node234<T> node) const;
+	template <typename V> friend ostream & operator<<(ostream & os, const Node234<V> node)
+	{
+		os << "Node:\nKeys: ";
+
+		for (size_t i = 0; i < node.keys.size(); i++)
+			os << node.keys[i];
+
+		if (node.leaves.size() <= 0)
+			os << "\tLeaf reached.\n";
+		else
+		{
+			os << "Leaves:\n";
+			for (size_t i = 0; i < node.leaves.size(); i++)
+				os << *(node.leaves[i]);
+		}
+		return os;
+	}
 
 private:
 	vector<T> keys;
@@ -229,6 +246,5 @@ bool Node234<T>::operator==(Node234<T> node) const
 {
 	return (this->keys == node.getKeys() && this->leaves == node.getLeaves());
 }
-
 
 

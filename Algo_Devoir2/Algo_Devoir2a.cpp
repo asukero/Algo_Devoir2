@@ -3,8 +3,6 @@
 
 #include "stdafx.h"
 #include "FamilyTree.h"
-#include "EyeColor.h"
-#include "Order.h"
 #include <iostream>
 
 using namespace std;
@@ -12,16 +10,16 @@ using namespace std;
 
 int main()
 {
-	Person t("T", "t", 1960, GREEN);
-	Person a("A", "a", 1961, BROWN);
-	Person b("B", "b", 1962, BLUE);
-	Person m("M", "n", 1963, GREEN);
-	Person r("R", "r", 1964, BROWN);
-	Person n("N", "n", 1965, BLUE);
-	Person o("O", "o", 1966, GREEN);
-	Person p("P", "p", 1967, BROWN);
-	Person q("Q", "q", 1968, BLUE);
-	Person s("S", "s", 1969, BLUE);
+	Person t("Thomas", "Dupont", 1915, GREEN);
+	Person a("Anatole", "Dupont", 1941, BROWN);
+	Person b("Brigitte", "Tremblay", 1939, BLUE);
+	Person m("Marc", "Dupont", 1963, GREEN);
+	Person r("Regis", "Dupont", 1994, BROWN);
+	Person n("Noemie", "Bouchard", 1965, BLUE);
+	Person o("Olivier", "Bouchard", 1936, GREEN);
+	Person p("Patricia", "Martin", 1942, BROWN);
+	Person q("Quentin", "Martin", 1912, BLUE);
+	Person s("Sophie", "Daniel", 1918, BLUE);
 
 			//   		R
 			//	   M	     N
@@ -42,19 +40,19 @@ int main()
 
 	cout << "Number of person in the tree: " << familyTree.getSize() << endl;
 	cout << "Average age: " << familyTree.getAverageAge() << endl;
-	cout << "Heigth of the tree: " << familyTree.getHeight() << endl;
+	cout << "Height of the tree: " << familyTree.getHeight() << endl;
 	
 
 	vector<Person> ancestors;
 	ancestors = familyTree.getAncestorsWithColorEye(&m, GREEN, ancestors);
-	cout << "Ancestors of M with color eye green" << endl;
+	cout << "Ancestors of Marc with color eye green" << endl;
 	for (size_t i = 0; i < ancestors.size(); i++)
 	{
 		cout << ancestors[i].name << " ";
 	}
 	cout << endl;
 	
-	cout << "Descendents List of Q in pre-order:" << endl;
+	cout << "Descendents List of Quentin in pre-order:" << endl;
 	vector<Person> descendants;
 	descendants = familyTree.getDescendants(&q,PRE);
 	for(size_t i = 0; i < descendants.size(); i++)
@@ -63,7 +61,7 @@ int main()
 	}
 	cout << endl;
 
-	cout << "Descendents List of Q in post-order:" << endl;
+	cout << "Descendents List of Quentin in post-order:" << endl;
 	descendants = familyTree.getDescendants(&q, POST);
 	for (size_t i = 0; i < descendants.size(); i++)
 	{
@@ -71,7 +69,7 @@ int main()
 	}
 	cout << endl;
 	
-	cout << "Descendents List of Q in in-order:" << endl;
+	cout << "Descendents List of Quentin in in-order:" << endl;
 	descendants = familyTree.getDescendants(&q, IN);
 	for (size_t i = 0; i < descendants.size(); i++)
 	{

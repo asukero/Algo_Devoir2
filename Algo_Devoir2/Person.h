@@ -1,14 +1,15 @@
 ﻿#pragma once
 #include <string>
-#include "EyeColor.h"
-
 using namespace std;
+
+enum EyeColor
+{ BLUE, GREEN, BROWN };
+
 class Person
 {
 public:
 	Person *father;
 	Person *mother;
-	//int height;
 	string name;
 	string lastName;
 	int yearOfBirth;

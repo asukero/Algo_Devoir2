@@ -70,3 +70,9 @@ bool LegoPiece::operator==(const LegoPiece legoPiece) const
 {
 	return this->id == legoPiece.getId();
 }
+
+ostream & operator<<(ostream & os, const LegoPiece & piece)
+{
+	os << "\tid: " << piece.id << " description: " << piece.description << " category: " << piece.description << "\n";
+	return os;
+}

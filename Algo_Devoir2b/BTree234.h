@@ -24,6 +24,12 @@ public:
 	shared_ptr<Node234<T>> getRoot();
 
 	static BTree234<T> convertToBTree234(RBTree<T> tree);
+	template <typename V> friend ostream & operator<<(ostream & os, const BTree234<V> tree)
+	{
+		os << "Tree: (print in pre-order)\n" << *(tree.root);
+		return os;
+	}
+
 
 private:
 	shared_ptr<Node234<T>> root;
@@ -343,5 +349,3 @@ void BTree234<T>::_addKey(T key, shared_ptr<Node234<T>> startNode, shared_ptr<No
 		_addKey(key, startNode->getLeafAt(nextleafPos), startNode);
 	}
 }
-
-

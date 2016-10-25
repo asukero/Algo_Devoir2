@@ -9,9 +9,8 @@
 #include <vector>
 #include "LegoPiece.h"
 #include "BTree234.h"
-#include <algorithm>
-#include "RBNode.h"
 #include "RBTree.h"
+#include <iostream>
 
 using namespace std;
 
@@ -74,7 +73,7 @@ int main()
 	
 	shared_ptr<Node234<LegoPiece>> node  = tree.search(piecesList[5]);
 	//tree.deleteKey(piecesList[0]);
-
+	cout << tree << endl;
 	RBTree<LegoPiece> rbTree = RBTree<LegoPiece>::convertToRBTree(tree);
 	BTree234<LegoPiece> tree2 = BTree234<LegoPiece>::convertToBTree234(rbTree);
 	

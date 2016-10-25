@@ -22,6 +22,7 @@ public:
 	bool operator>(const LegoPiece legoPiece) const;
 	bool operator<(const LegoPiece legoPiece) const;
 	bool operator==(const LegoPiece legoPiece) const;
+	friend ostream& operator<<(ostream& os, const LegoPiece& piece);
 
 private:
 	string id;
