@@ -3,6 +3,9 @@
 #include <algorithm>
 #include <memory>
 
+template <class T>
+class RBNode;
+
 using namespace std;
 
 template<typename T>
@@ -11,7 +14,7 @@ class Node234
 public:
 	Node234();
 	Node234(vector<T> keys);
-	//virtual ~Node234();
+	Node234(RBNode<T> node);
 
 	const vector<T> & getKeys();
 	T getKeyAt(int i);
@@ -30,6 +33,8 @@ public:
 	void removeKey(int i);
 	size_t getMedianPos();
 
+	static shared_ptr<Node234<T>> convertToNode234(shared_ptr<RBNode<T>> node);
+
 	bool operator==(Node234<T> node) const;
 
 private:
@@ -45,6 +50,12 @@ Node234<T>::Node234()
 {
 	this->keys = vector<T>();
 	this->leaves = vector<shared_ptr<Node234<T>>>();
+}
+
+template <typename T>
+Node234<T>::Node234(RBNode<T> node)
+{
+	this = convertToNode234(node);
 }
 
 template<typename T>
@@ -151,12 +162,66 @@ void Node234<T>::removeKey(int i)
 {
 	this->keys.erase(this->keys.begin() + i);
 }
+
+template <typename T>
+shared_ptr<Node234<T>> Node234<T>::convertToNode234(shared_ptr<RBNode<T>> node)
+{
+	if (node != nullptr)
+	{
+		shared_ptr<Node234> newNode(new Node234<T>());
+		if (node->isLeaf())
+		{
+			newNode->addKey(node->getValue());
+		}
+		else
+		{
+			newNode->addKey(node->getValue());
+
+			if (node->getLeftChild() != nullptr)
+			{
+				if (node->getLeftChild()->getColor() == RED)
+				{
+					newNode->addKey(node->getLeftChild()->getValue());
+					if (node->getLeftChild()->getLeftChild() != nullptr)
+						newNode->pushLeaf(convertToNode234(node->getLeftChild()->getLeftChild()));
+					if (node->getLeftChild()->getRightChild() != nullptr)
+						newNode->pushLeaf(convertToNode234(node->getLeftChild()->getRightChild()));
+				}
+				else
+				{
+					newNode->pushLeaf(convertToNode234(node->getLeftChild()));
+				}
+			}
+
+			if (node->getRightChild() != nullptr)
+			{
+				if (node->getRightChild()->getColor() == RED)
+				{
+					newNode->addKey(node->getRightChild()->getValue());
+					if (node->getRightChild()->getLeftChild() != nullptr)
+						newNode->pushLeaf(convertToNode234(node->getRightChild()->getLeftChild()));
+					if (node->getRightChild()->getRightChild() != nullptr)
+						newNode->pushLeaf(convertToNode234(node->getRightChild()->getRightChild()));
+				}
+				else
+				{
+					newNode->pushLeaf(convertToNode234(node->getRightChild()));
+				}
+			}
+		}
+		return newNode;
+
+
+	}
+	throw invalid_argument("The node passed in argument is a null pointer!\n");
+}
+
 template<typename T>
 size_t Node234<T>::getMedianPos()
 {
 	if (this->keys.size() % 2 == 0)
 		throw logic_error("The number of keys has to be odd to get median key");
-	return (this->keys.size() ) / 2;
+	return (this->keys.size()) / 2;
 }
 
 template<typename T>

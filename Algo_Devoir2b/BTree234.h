@@ -3,6 +3,9 @@
 #include "Node234.h"
 #include <algorithm>
 
+template <class T>
+class RBTree;
+
 using namespace std;
 
 template <typename T>
@@ -11,13 +14,16 @@ class BTree234
 public:
 	BTree234();
 	BTree234(vector<T> keys);
-	virtual ~BTree234();
+	BTree234(shared_ptr<Node234<T>> rootNode);
+	BTree234(RBTree<T> tree);
 
 	bool isEmpty();
 	shared_ptr<Node234<T>> search(const T & key);
 	void addKey(const T & key);
-
 	void deleteKey(const T & keyToDelete);
+	shared_ptr<Node234<T>> getRoot();
+
+	static BTree234<T> convertToBTree234(RBTree<T> tree);
 
 private:
 	shared_ptr<Node234<T>> root;
@@ -31,6 +37,12 @@ template<typename T>
 BTree234<T>::BTree234()
 {
 	this->root = make_shared<Node234<T>>();
+}
+
+template <typename T>
+BTree234<T>::BTree234(shared_ptr<Node234<T>> rootNode)
+{
+	this->root = rootNode;
 }
 
 template<typename T>
@@ -49,9 +61,10 @@ BTree234<T>::BTree234(vector<T> keys)
 
 }
 
-template<typename T>
-BTree234<T>::~BTree234()
+template <typename T>
+BTree234<T>::BTree234(RBTree<T> tree)
 {
+	convertToBTree234(tree);
 }
 
 template<typename T>
@@ -88,6 +101,19 @@ template <typename T>
 void BTree234<T>::addKey(const T & key)
 {
 	_addKey(key, this->root, nullptr);
+}
+
+template <typename T>
+shared_ptr<Node234<T>> BTree234<T>::getRoot()
+{
+	return this->root;
+}
+
+template <typename T>
+BTree234<T> BTree234<T>::convertToBTree234(RBTree<T> tree)
+{
+	shared_ptr<Node234<T>> rootNode = Node234<T>::convertToNode234(tree.getRoot());
+	return BTree234(rootNode);
 }
 
 template<typename T>
