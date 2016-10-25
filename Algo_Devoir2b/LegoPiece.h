@@ -22,6 +22,9 @@ public:
 	bool operator>(const LegoPiece legoPiece) const;
 	bool operator<(const LegoPiece legoPiece) const;
 	bool operator==(const LegoPiece legoPiece) const;
+	bool operator>(const string id) const;
+	bool operator<(const string id) const;
+	bool operator==(const string id) const;
 	friend ostream& operator<<(ostream& os, const LegoPiece& piece);
 
 private:

@@ -13,6 +13,12 @@ public:
 	RBTree(BTree234<T> tree);
 	static RBTree<T> convertToRBTree(BTree234<T> tree);
 	shared_ptr<RBNode<T>> getRoot();
+
+	template <typename V> friend ostream & operator<<(ostream & os, const RBTree<V> tree)
+	{
+		os << "RBTree: (print in pre-order)\n" << *(tree.root);
+		return os;
+	}
 private:
 	shared_ptr<RBNode<T>> root;
 };

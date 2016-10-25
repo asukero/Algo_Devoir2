@@ -28,6 +28,24 @@ public:
 
 	static shared_ptr<RBNode<T>> convertToRBNode(shared_ptr<Node234<T>> node);
 
+	template <typename V> friend ostream & operator<<(ostream & os, const RBNode<V> node)
+	{
+		string color;
+		if (node.color == RED)
+			color = "Red";
+		else
+			color = "Black";
+
+		os << "Node:\nValue: " << node.value << "Color: " << color << endl;
+
+		if (node.left != nullptr)
+			os << "Left child:\n" << *(node.left);
+		if (node.right != nullptr)
+			os << "Right child:\n" << *(node.right);
+
+		return os;
+	}
+
 private:
 	T value;
 	RBTreeColor color;

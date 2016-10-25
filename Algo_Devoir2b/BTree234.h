@@ -26,7 +26,7 @@ public:
 	static BTree234<T> convertToBTree234(RBTree<T> tree);
 	template <typename V> friend ostream & operator<<(ostream & os, const BTree234<V> tree)
 	{
-		os << "Tree: (print in pre-order)\n" << *(tree.root);
+		os << "BTree234: (print in pre-order)\n" << *(tree.root);
 		return os;
 	}
 
